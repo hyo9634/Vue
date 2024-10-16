@@ -1,0 +1,39 @@
+-<form id="loginForm">
+    ID : <input type="text" id="id"/>>
+    password : <input type="password" id="pwd"/>
+    <input type="submit"/>
+</form>
+<script>
+document.getElementById("loginForm").addEventListner('submit',function(event){
+    //자바스크립트로 사용저로부터 입력받은 값을 받아온다.
+
+        const id = document.getElementById("id").value;
+        const password = document.getElementById("pwd").value;
+
+    //사용자 입력 데이터를 서버에 전송하기 위한 AJAX요청 만들기
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST','/login_process'.true); //원할 때마다 우너하는 영역만 처리할 수 있게하는 비동기처리
+
+    //AJAX 응답에 대한 설정하기
+    ahr.onreadystatechange = function () {
+        if(xhr.readState === XMLHttpRequest.DONE){
+            if(xhr.statue === 200){
+                const reapone = xhr.responeText;
+                console.log(respone);
+            }
+            else{
+                console.error('Request failed' + xhr.status);
+            }
+        }
+    };
+
+
+    // 데이터 전송 준비하기
+    const formData = new formData();
+    formData.append('id',id);
+    formData.append('password',pwd);
+
+    xhr.send(formData);
+} );
+
+</script>
